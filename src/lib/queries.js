@@ -76,3 +76,19 @@ export const singlePostQuery = groq`
     body
   }
 `;
+
+// banner for home page query
+
+export const bannersQuery = groq`
+  *[_type == "blogBanner" && isActive == true] | order(_createdAt desc) {
+    _id,
+    title,
+    "smallDescription": description,
+    "imageUrl": image.asset->url,
+    linkType,
+    internalLink->{
+      slug
+    },
+    externalUrl
+  }
+`;

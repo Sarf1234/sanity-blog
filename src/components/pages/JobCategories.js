@@ -14,7 +14,7 @@ export default async function JobCategories() {
             key={item.title}
             className="text-gray-800 border-b border-gray-200 pb-2 hover:text-indigo-600 cursor-pointer"
           >
-            <Link href={`/${item.slug.current}`} key={index}>
+            <Link href={`/category/${item.slug.current}`} key={index}>
               {item.title}
             </Link>
           </li>

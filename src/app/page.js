@@ -9,12 +9,13 @@ import WebsiteBanner from "@/components/pages/WebsiteBanner";
 export default function Home() {
   return (
     <>
-      <div className="relative h-[3.8rem]">
+      <div className="relative h-[6rem]">
         <Navbar />
       </div>
       <WebsiteBanner />
       <FeaturedJobsCarousel />
       <AllBlogsList />
+      <FeaturedJobsCarousel />
       <Footer />
     </>
   );

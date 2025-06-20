@@ -2,20 +2,28 @@ import { client } from "@/sanity/lib/client";
 import { nanoid } from "nanoid";
 
 export async function POST(req) {
-  const { _id, title } = await req.json();
+  try {
+    const { _id, title } = await req.json();
 
-  if (!title || !_id) {
-    return new Response("Missing title or ID", { status: 400 });
-  }
+    if (!title || !_id) {
+      return new Response("Missing title or ID", { status: 400 });
+    }
 
-  const realId = _id.startsWith("drafts.") ? _id.replace("drafts.", "") : _id;
+    const realId = _id.startsWith("drafts.") ? _id.replace("drafts.", "") : _id;
+    console.log("🔍 Fetching Sanity doc for ID:", realId);
 
-  const currentDoc = await client.getDocument(realId);
-  if (Array.isArray(currentDoc.body) && currentDoc.body.length > 0) {
-    return new Response("Body already exists, skipping.", { status: 200 });
-  }
+    const currentDoc = await client.getDocument(realId);
+    console.log("📄 currentDoc:", currentDoc);
 
-  const prompt = `
+    if (!currentDoc) {
+      return new Response("Document not found in Sanity", { status: 404 });
+    }
+
+    if (Array.isArray(currentDoc.body) && currentDoc.body.length > 0) {
+      return new Response("Body already exists, skipping.", { status: 200 });
+    }
+
+    const prompt = `
 You are a professional SEO blog writer.
 
 Write a complete blog post based on this title: "${title}".
@@ -30,9 +38,8 @@ Include the following sections clearly:
 Return everything as plain text in this exact order — do not use JSON, Markdown, or formatting.
 
 Keep it clean, readable, and suitable for directly showing on a blog site.
-`;
+    `;
 
-  try {
     const aiRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -53,7 +60,7 @@ Keep it clean, readable, and suitable for directly showing on a blog site.
     const content = data.choices?.[0]?.message?.content || "";
     console.log("🧠 AI Response:", content);
 
-    // Split plain text into paragraphs and convert to Sanity block format
+    // Convert response into paragraph blocks
     const paragraphBlocks = content
       .split(/\n{2,}/)
       .filter((p) => p.trim())
@@ -79,10 +86,13 @@ Keep it clean, readable, and suitable for directly showing on a blog site.
       })
       .commit();
 
-    return new Response(JSON.stringify({ message: "Body updated from AI response" }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return new Response(
+      JSON.stringify({ message: "Body updated from AI response" }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   } catch (err) {
     console.error("❌ AI Body Update Error:", err.message || err);
     return new Response("Failed to update body from AI", { status: 500 });

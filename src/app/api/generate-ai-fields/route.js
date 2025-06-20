@@ -36,7 +36,7 @@ Structure your response in the following order, with plain text only (no JSON, M
 4. Blog Content: Write a detailed blog in 8-10 paragraphs. The tone should be warm, empathetic, relatable, and written as if by a human with life experience. Include storytelling elements, personal touch, and advice that genuinely helps the reader. Use short sentences, rhetorical questions, emotional resonance, and examples.
 
 Ensure:
-- The article is optimized for SEO but still reads naturally.
+- The article is optimized for SEO but still reads naturally and use hinglish.
 - Content is unique and not generic.
 - Focus on reader intent and emotional connection.
 - Make it Google-friendly, share-worthy, and trustworthy.

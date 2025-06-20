@@ -23,22 +23,27 @@ export async function POST(req) {
       return new Response("Body already exists, skipping.", { status: 200 });
     }
 
-    const prompt = `
-You are a professional SEO blog writer.
+   const prompt = `
+You are a professional SEO blog writer with expertise in writing emotionally engaging, human-like articles that rank on Google.
 
-Write a complete blog post based on this title: "${title}".
+Your task is to write a complete, well-researched blog post based on the title: "${title}".
 
-Include the following sections clearly:
+Structure your response in the following order, with plain text only (no JSON, Markdown, or special characters):
 
-1. Meta Title: (under 60 characters)
-2. Meta Description: (under 160 characters)
-3. SEO Keywords: (comma separated, 5 keywords max)
-4. Product Description: Write a detailed 3–4 paragraph blog-style product description.
+1. Meta Title: (under 60 characters, emotionally engaging)
+2. Meta Description: (under 160 characters, persuasive and keyword-rich)
+3. SEO Keywords: (comma-separated, 5 keywords max, high search intent)
+4. Blog Content: Write a detailed blog in 8-10 paragraphs. The tone should be warm, empathetic, relatable, and written as if by a human with life experience. Include storytelling elements, personal touch, and advice that genuinely helps the reader. Use short sentences, rhetorical questions, emotional resonance, and examples.
 
-Return everything as plain text in this exact order — do not use JSON, Markdown, or formatting.
+Ensure:
+- The article is optimized for SEO but still reads naturally.
+- Content is unique and not generic.
+- Focus on reader intent and emotional connection.
+- Make it Google-friendly, share-worthy, and trustworthy.
 
-Keep it clean, readable, and suitable for directly showing on a blog site.
-    `;
+End the article with a gentle takeaway or message to leave the reader feeling understood and supported.
+`;
+
 
     const aiRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",

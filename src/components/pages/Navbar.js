@@ -86,11 +86,12 @@ const Navbar = () => {
             onClick={() => setIsSearchOpen(true)}
           /> */}
           <Menu
-             className={`w-8 h-8 cursor-pointer ${
-           scrolled
-                    ? "text-gray-700 hover:text-plum"
-                  : "text-white hover:text-rose hover:bg-white/10"
-           }`}
+          //    className={`w-8 h-8 cursor-pointer ${
+          //  scrolled
+          //           ? "text-gray-700 hover:text-plum"
+          //         : "text-white hover:text-rose hover:bg-white/10"
+          //  }`}
+          className="w-6 h-6 cursor-pointer text-softGray"
             onClick={() => setIsMenuOpen(true)}
           />
         </div>

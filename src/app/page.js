@@ -1,27 +1,21 @@
-import AllBlogsList from "@/components/pages/AllBlogsList";
-import FeaturedJobsCarousel from "@/components/pages/FeaturedJobsCarousel";
+
+import dynamic from "next/dynamic";
 import FeaturedPostCard from "@/components/pages/FeaturedPostCard";
-import Footer from "@/components/pages/Footer";
-import JobCategories from "@/components/pages/JobCategories";
-import Navbar from "@/components/pages/Navbar";
-import QuoteCarousel from "@/components/pages/QuoteCarousel";
 import WebsiteBanner from "@/components/pages/WebsiteBanner";
 
+// Dynamically import non-critical below-the-fold components
+const AllBlogsList = dynamic(() => import("@/components/pages/AllBlogsList"));
+const QuoteCarousel = dynamic(() => import("@/components/pages/QuoteCarousel"));
+const JobCategories = dynamic(() => import("@/components/pages/JobCategories"));
 
 export default function Home() {
   return (
     <>
-      {/* <div className="relative h-[6rem]">
-        <Navbar />
-      </div> */}
       <WebsiteBanner />
       <FeaturedPostCard />
       <AllBlogsList />
       <QuoteCarousel />
       <JobCategories />
-      {/* <FeaturedJobsCarousel />
-      <FeaturedJobsCarousel /> */}
-      {/* <Footer /> */}
     </>
   );
 }

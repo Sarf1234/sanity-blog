@@ -1,6 +1,46 @@
-'use client'
-
 import React from 'react'
+
+
+export const metadata = {
+  title: "About LoveVerse | Where Emotions Find a Voice",
+  description:
+    "Discover the heart behind LoveVerse — a platform dedicated to emotional connection, healing, and inspiration through love stories, quotes, and blogs.",
+  keywords: [
+    "about LoveVerse",
+    "love stories platform",
+    "emotional blogs",
+    "breakup healing",
+    "relationship advice",
+    "quotes on love",
+    "healing journey",
+    "community of hearts",
+  ],
+  openGraph: {
+    title: "About LoveVerse | Where Emotions Find a Voice",
+    description:
+      "Learn about LoveVerse's mission to connect hearts through powerful storytelling and meaningful quotes. A space where love, healing, and growth meet.",
+    url: "https://yourdomain.com/about", // replace with your actual domain
+    siteName: "LoveVerse",
+    images: [
+      {
+        url: "https://yourdomain.com/og-about.jpg", // optional OG image
+        width: 1200,
+        height: 630,
+        alt: "About LoveVerse Cover",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About LoveVerse | Where Emotions Find a Voice",
+    description:
+      "Know more about the story and mission of LoveVerse — connecting hearts through inspiring emotional content.",
+    images: ["https://yourdomain.com/twitter-about.jpg"], // optional
+  },
+};
+
 
 const About = () => {
   return (

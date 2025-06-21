@@ -4,6 +4,46 @@ import BoxUiHomePage from "@/components/ui/BoxUiHomePage";
 import { notFound } from "next/navigation";
 import JobCategories from "@/components/pages/JobCategories";
 
+export const metadata = {
+  title: "Love Languages & Breakup Healing | LoveConnect",
+  description:
+    "Explore insightful articles that blend the beauty of love languages with the path of breakup healing. Understand emotional needs, communication styles, and recovery tips.",
+  keywords: [
+    "love languages",
+    "breakup healing",
+    "relationship advice",
+    "emotional connection",
+    "relationship recovery",
+    "self-love",
+    "healing after breakup",
+    "romantic communication",
+  ],
+  openGraph: {
+    title: "Love Languages & Breakup Healing | LoveConnect",
+    description:
+      "Dive into stories and guides that blend emotional connection with the healing journey. Perfect for those navigating love and loss.",
+    url: "https://yourdomain.com/love-and-healing", // replace with your actual URL
+    siteName: "LoveConnect",
+    images: [
+      {
+        url: "https://yourdomain.com/og-love-healing.jpg", // optional image
+        width: 1200,
+        height: 630,
+        alt: "Love and Healing Banner",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Love Languages & Breakup Healing | LoveConnect",
+    description:
+      "Explore how understanding love languages can ease the pain of breakup and strengthen future relationships.",
+    images: ["https://yourdomain.com/twitter-love-healing.jpg"],
+  },
+};
+
 // Pre-render static paths for all category slugs
 export async function generateStaticParams() {
   const categories = await client.fetch(categoriesQuery);

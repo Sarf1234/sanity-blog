@@ -5,6 +5,38 @@ import { notFound } from "next/navigation";
 import JobCategories from "@/components/pages/JobCategories";
 
 // Pre-render static paths for all category slugs
+export async function generateMetadata({ params }) {
+  const categories = await client.fetch(categoriesQuery);
+  const category = categories.find((c) => c.slug.current === params.slug);
+
+  if (!category) return { title: "Category Not Found" };
+
+  return {
+    title: category.seoTitle || category.title,
+    description: category.seoDescription || category.description,
+    keywords: category.seoKeywords?.join(', ') || '',
+    openGraph: {
+      title: category.seoTitle || category.title,
+      description: category.seoDescription || category.description,
+      type: 'website',
+      url: `https://yourdomain.com/category/${params.slug}`,
+      images: [
+        {
+          url: category.coverImageUrl || category.iconUrl || '',
+          width: 1200,
+          height: 630,
+          alt: category.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: category.seoTitle || category.title,
+      description: category.seoDescription || category.description,
+      images: [category.coverImageUrl || category.iconUrl || ''],
+    },
+  };
+}
 export async function generateStaticParams() {
   const categories = await client.fetch(categoriesQuery);
   return categories.map((cat) => ({

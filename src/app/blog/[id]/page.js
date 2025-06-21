@@ -7,6 +7,37 @@ import Link from 'next/link';
 
 export const dynamicParams = true;
 
+// ✅ SEO Metadata for each blog post
+export async function generateMetadata({ params }) {
+  const post = await client.fetch(singlePostQuery, { slug: params.id });
+
+  return {
+    title: post.seoTitle || post.title,
+    description: post.seoDescription || post.summary || '',
+    keywords: post.seoKeywords?.join(', ') || '',
+    openGraph: {
+      title: post.seoTitle || post.title,
+      description: post.seoDescription || post.summary || '',
+      type: 'article',
+      url: `https://yourdomain.com/blog/${params.id}`,
+      images: [
+        {
+          url: post.mainImage ? urlFor(post.mainImage).url() : '',
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.seoTitle || post.title,
+      description: post.seoDescription || post.summary || '',
+      images: [post.mainImage ? urlFor(post.mainImage).url() : ''],
+    },
+  };
+}
+
 const PostPage = async ({ params }) => {
   const { id } = params;
 

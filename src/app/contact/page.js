@@ -1,6 +1,45 @@
-'use client';
+
 
 import React from 'react';
+
+export const metadata = {
+  title: "Contact Us | LoveVerse",
+  description:
+    "Get in touch with the LoveVerse team for inquiries, feedback, or collaborations. We're here to help and connect with you emotionally.",
+  keywords: [
+    "contact LoveVerse",
+    "love blog support",
+    "emotional story contact",
+    "relationship support",
+    "talk to LoveVerse",
+    "connect with love blog team",
+  ],
+  openGraph: {
+    title: "Contact LoveVerse | Reach Out Today",
+    description:
+      "Have a question or want to connect? Use our contact page to reach the LoveVerse team for support, collaboration, or just to say hello.",
+    url: "https://yourdomain.com/contact", // Replace with actual domain
+    siteName: "LoveVerse",
+    images: [
+      {
+        url: "https://yourdomain.com/og-contact.jpg", // Optional: update OG image
+        width: 1200,
+        height: 630,
+        alt: "Contact LoveVerse",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact LoveVerse",
+    description:
+      "Reach out to the team behind LoveVerse — your emotional blog and quote platform. Let’s connect!",
+    images: ["https://yourdomain.com/twitter-contact.jpg"], // Optional
+  },
+};
+
 
 const ContactPage = () => {
   return (

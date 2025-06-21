@@ -9,6 +9,14 @@ export default {
   theme: {
   	extend: {
   		colors: {
+			rose: '#E63946',
+			blush: '#F8D7DA',
+			peach: '#FFE5EC',
+			mauve: '#C08497',
+			plum: '#6A0572',
+			ivory: '#FFF0F3',
+			lilac: '#EFD6F5',
+			softGray: '#707070',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

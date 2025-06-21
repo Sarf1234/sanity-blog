@@ -1,9 +1,9 @@
 import React from 'react';
 import { client } from '../../../sanity/lib/client';
-import { singlePostQuery } from '@/lib/queries';
-import { urlFor } from '../../../sanity/lib/imageUrl'
-import { PortableText } from '@portabletext/react';  // <-- for rendering Sanity body content
-import Image from 'next/image';
+import { singlePostQuery, categoriesQuery } from '@/lib/queries';
+import { urlFor } from '../../../sanity/lib/imageUrl';
+import { PortableText } from '@portabletext/react';
+import Link from 'next/link';
 
 export const dynamicParams = true;
 
@@ -11,57 +11,75 @@ const PostPage = async ({ params }) => {
   const { id } = params;
 
   const post = await client.fetch(singlePostQuery, { slug: id });
-  console.clear()
-  console.log(post)
+  const categories = await client.fetch(categoriesQuery, {}, { cache: 'no-store' });
 
-  if (!post) {
-    return <div>Post not found!</div>;
-  }
+  if (!post) return <div className="text-center py-10">Post not found!</div>;
 
   return (
-    <div className="container mx-auto px-4 py-10">
-      <div className="max-w-4xl mx-auto">
-        {/* Post Title */}
-        <h1 className="text-4xl font-bold mb-4 text-center">{post.title}</h1>
+    <section className="min-h-screen w-full bg-[#fefce8] py-10 px-4 md:px-10 pt-28 ">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+        
+        {/* Main Blog Post Area */}
+        <div className="md:col-span-2 bg-white p-6 rounded-lg shadow-md">
+          <h1 className="text-3xl md:text-5xl font-bold text-gray-800 mb-4">
+            {post.title}
+          </h1>
 
-        {/* Author and Date */}
-        <div className="flex justify-center items-center text-sm text-gray-500 mb-6">
-          <span>By {post.authorName}</span>
-          <span className="mx-2">|</span>
-          <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
+          {/* Author & Date */}
+          <div className="text-sm text-gray-500 mb-4">
+            By <span className="font-medium text-gray-700">{post.authorName}</span> |{" "}
+            {new Date(post.publishedAt).toLocaleDateString()}
+          </div>
+
+          {/* Image */}
+          {post.mainImage && (
+            <div className="mb-6">
+              <img
+                src={urlFor(post.mainImage).url()}
+                alt={post.title}
+                className="rounded-lg w-full max-h-[400px] object-cover shadow"
+              />
+            </div>
+          )}
+
+          {/* Categories */}
+          {post.categories?.length > 0 && (
+            <div className="flex flex-wrap mb-6 gap-2">
+              {post.categories.map((cat) => (
+                <span
+                  key={cat._id}
+                  className="bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full"
+                >
+                  {cat.title}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Content */}
+          <div className="prose prose-sm md:prose lg:prose-lg max-w-none prose-p:text-gray-700">
+            <PortableText value={post.body} />
+          </div>
         </div>
 
-        {/* Main Image */}
-        {post.mainImage && (
-          <div className="mb-8">
-            <img
-              src={urlFor(post.mainImage).url()} 
-              alt={post.title}
-              className="w-full h-auto max-h-[500px] object-cover rounded-lg shadow-md"
-            />
-          </div>
-        )}
-
-        {/* Categories */}
-        {post.categories && post.categories.length > 0 && (
-          <div className="mb-6 flex flex-wrap justify-center">
-            {post.categories.map((category) => (
-              <span
-                key={category._id}
-                className="bg-purple-200 text-purple-700 px-3 py-1 rounded-full text-sm mx-1 mb-2"
-              >
-                {category.title}
-              </span>
+        {/* Sidebar: Category Table */}
+        <aside className="bg-white rounded-lg shadow-md p-5 h-fit sticky top-24">
+          <h3 className="text-lg font-bold text-gray-800 mb-4">All Categories</h3>
+          <ul className="space-y-3">
+            {categories.map((item, idx) => (
+              <li key={idx}>
+                <Link
+                  href={`/category/${item.slug.current}`}
+                  className="block text-sm text-gray-600 hover:text-[#c8a96a] transition font-medium border-b pb-2"
+                >
+                  {item.title}
+                </Link>
+              </li>
             ))}
-          </div>
-        )}
-
-        {/* Body Content */}
-        <div className="prose lg:prose-xl max-w-none mx-auto">
-          <PortableText value={post.body} />
-        </div>
+          </ul>
+        </aside>
       </div>
-    </div>
+    </section>
   );
 };
 

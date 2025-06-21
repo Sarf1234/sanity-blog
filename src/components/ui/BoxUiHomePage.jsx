@@ -1,29 +1,39 @@
+"use client";
 import React from "react";
 import Link from "next/link";
+import { CalendarDays } from "lucide-react";
 
 const BoxUiHomePage = ({ post }) => {
   return (
-    <div className="p-1">
-      <Link href={`/blog/${post.slug.current}`}>
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-all">
-          <img
-            src={post.mainImage}
-            alt={post.title}
-            className="w-full h-60 object-cover"
-          />
-          <div className="p-4 text-left">
-            <h3 className="text-md font-semibold text-gray-800">
-              {post.title}
-            </h3>
-            <p className="text-sm text-gray-600 mb-1">
-              {post?.authorName || "Unknown"}
-            </p>
-            <p className="text-xs text-gray-500 mb-2">
-              Posted on: {new Date(post.publishedAt).toLocaleDateString()}
-            </p>
-          </div>
+    <div className=" overflow-hidden transition-transform duration-300 hover:scale-[1.02]">
+      <img
+        src={post.mainImage}
+        alt={post.title}
+        className="w-full h-64 object-cover rounded-lg"
+      />
+      <div className="p-5">
+        <h3 className="text-lg font-semibold text-[#4b2852] mb-2">{post.title}</h3>
+
+        <div className="flex items-center text-sm text-gray-500 mb-3">
+          <CalendarDays className="w-4 h-4 mr-1" />
+          {new Date(post.publishedAt).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+          })}
         </div>
-      </Link>
+
+        <p className="text-sm text-gray-600 mb-4 line-clamp-3">
+          {post.summary || "No summary available."}
+        </p>
+
+        <Link
+          href={`/blog/${post.slug.current}`}
+          className="text-[#9d3dbf] text-sm font-semibold hover:underline flex items-center"
+        >
+          Read More <span className="ml-1">→</span>
+        </Link>
+      </div>
     </div>
   );
 };

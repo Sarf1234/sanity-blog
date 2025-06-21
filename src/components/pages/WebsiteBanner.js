@@ -1,73 +1,79 @@
-"use client";
+'use client'
 
-import React, { useEffect, useState } from "react";
-import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
-import { client } from "@/sanity/lib/client";
-import { bannersQuery } from "@/lib/queries";
-import Link from "next/link";
+import React, { useEffect, useState } from 'react'
+import useEmblaCarousel from 'embla-carousel-react'
+import Autoplay from 'embla-carousel-autoplay'
+import { client } from '@/sanity/lib/client'
+import { bannersQuery } from '@/lib/queries'
+import Link from 'next/link'
 
 const BannerCarousel = () => {
-  const [banners, setBanners] = useState([]);
-  const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 3000 })]);
+  const [banners, setBanners] = useState([])
+  const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 4000 })])
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await client.fetch(bannersQuery, {}, { cache: 'no-store' });
-      setBanners(data || []);
-    };
-    fetchData();
-  }, []);
+      const data = await client.fetch(bannersQuery, {}, { cache: 'no-store' })
+      setBanners(data || [])
+    }
+    fetchData()
+  }, [])
 
-  if (!banners.length) return null;
+  if (!banners.length) return null
 
   return (
-    <section className="w-full md:h-[70vh] h-[40vh] overflow-hidden relative">
-      <div className="embla w-full h-full" ref={emblaRef}>
+    <section className="w-full h-[70vh] md:h-[90vh] relative overflow-hidden">
+      <div className="embla h-full" ref={emblaRef}>
         <div className="embla__container flex h-full">
           {banners.map((banner, idx) => (
-            <div
-              className="embla__slide min-w-full h-full relative"
-              key={idx}
-            >
-              {/* Background Image */}
+            <div key={idx} className="embla__slide min-w-full h-full relative">
+              {/* Background image */}
               <img
                 src={banner.imageUrl}
                 alt={banner.title}
-                className="absolute top-0 left-0 w-full h-full object-contain z-0"
+                className="absolute top-0 left-0 w-full h-full object-cover z-0"
               />
 
               {/* Overlay */}
-              <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30 z-10" />
+              <div className="absolute top-0 left-0 w-full h-full bg-black/40 z-10" />
 
-              {/* Content */}
-              <div className="relative z-20 h-full">
+              {/* Centered Content */}
+              <div className="relative z-20 h-full flex items-end md:items-center justify-center px-4">
                 <div
-                  className="absolute bottom-[10px] left-[20px] w-[33.3333%] p-3 sm:p-5 bg-white bg-opacity-70 rounded shadow-lg
-                  flex flex-col justify-end h-fit sm:h-auto"
+                  className="w-full max-w-xl p-4 sm:p-8 rounded-md text-center
+                  bg-white/10 backdrop-blur-lg
+                  flex flex-col items-center gap-4
+                  mb-8 md:mb-0"
                 >
-                  <h2 className="text-base sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-3 leading-snug">
+                  <h2 className="text-lg sm:text-3xl font-bold text-white leading-snug">
                     {banner.title}
                   </h2>
-                  <p className="text-xs sm:text-base text-gray-700 mb-3 leading-tight sm:leading-normal">
+                  <p className="text-xs sm:text-base text-white leading-relaxed">
                     {banner.smallDescription}
                   </p>
 
-                  {banner.linkType === "external" && banner.externalUrl ? (
+                  {/* Button */}
+                  {banner.linkType === 'external' && banner.externalUrl ? (
                     <a
                       href={banner.externalUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-block max-w-28 bg-indigo-600 text-white text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded hover:bg-indigo-700 transition"
+                      className="inline-block group"
                     >
-                      Visit Site
+                      <button className="relative inline-flex items-center justify-between px-6 py-3 sm:px-8 sm:py-3 bg-gradient-to-r from-[#dec187] to-[#c8a96a] text-black font-semibold tracking-widest text-xs sm:text-sm rounded-md shadow-md transition-all hover:shadow-lg hover:scale-[1.02]">
+                        <span className="mr-2">VIEW NOW</span>
+                        <span className="transform transition-transform duration-300 group-hover:translate-x-1">→</span>
+                      </button>
                     </a>
-                  ) : banner.linkType === "internal" && banner.internalLink?.slug?.current ? (
+                  ) : banner.linkType === 'internal' && banner.internalLink?.slug?.current ? (
                     <Link
                       href={`/blog/${banner.internalLink.slug.current}`}
-                      className="inline-block max-w-50 bg-indigo-600 text-white text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded hover:bg-indigo-700 transition"
+                      className="inline-block group"
                     >
-                      Visit Post
+                      <button className="relative inline-flex items-center justify-between px-6 py-3 sm:px-8 sm:py-3 bg-gradient-to-r from-[#dec187] to-[#c8a96a] text-black font-semibold tracking-widest text-xs sm:text-sm rounded-md shadow-md transition-all hover:shadow-lg hover:scale-[1.02]">
+                        <span className="mr-2">VIEW NOW</span>
+                        <span className="transform transition-transform duration-300 group-hover:translate-x-1">→</span>
+                      </button>
                     </Link>
                   ) : null}
                 </div>
@@ -77,7 +83,7 @@ const BannerCarousel = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default BannerCarousel;
+export default BannerCarousel

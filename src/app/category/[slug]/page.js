@@ -21,28 +21,48 @@ export default async function CategoryPage({ params }) {
     notFound();
   }
 
-  return (
-    <section className="px-4 py-10 md:px-8">
-      <div className="container mx-auto">
-        <h1 className="text-3xl font-bold mb-6 capitalize">
-          {params.slug.replace(/-/g, " ")}
-        </h1>
-        <div className="flex flex-col md:flex-row gap-6">
-          {/* Left: 2/3 Posts */}
-          <div className="w-full md:w-3/4 flex flex-wrap">
-            {posts.map((post, index) => (
-              <div key={index} className="md:w-1/3 gap-6 w-1/2">
-                <BoxUiHomePage post={post} />
-              </div>
-            ))}
-          </div>
+  const formattedSlug = params.slug.replace(/-/g, " ");
 
-          {/* Right: 1/3 Categories */}
-          <div className="w-full md:w-1/3">
-            <JobCategories />
-          </div>
+  return (
+    <main className="min-h-screen bg-[#fefce8] text-black">
+      {/* Header Section */}
+      {/* <section className="bg-gradient-to-r from-[#dec187] to-[#c8a96a] text-black py-12 px-4 md:px-10 shadow-inner">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-3xl md:text-5xl font-bold capitalize mb-2">
+            {formattedSlug}
+          </h1>
+          <p className="text-sm md:text-base text-gray-800">
+            Explore heartfelt stories, advice, and guides in <strong>{formattedSlug}</strong>.
+          </p>
         </div>
+      </section> */}
+
+      {/* Breadcrumb */}
+      <div className="max-w-7xl mx-auto px-4 md:px-10 mt-4 text-sm text-gray-600">
+        <nav className="flex flex-wrap items-center space-x-2">
+          <a href="/" className="hover:underline hover:text-black">Home</a>
+          <span>/</span>
+          <a href="/category" className="hover:underline hover:text-black">Categories</a>
+          <span>/</span>
+          <span className="capitalize font-medium">{formattedSlug}</span>
+        </nav>
       </div>
-    </section>
+
+      {/* Blog Posts */}
+      <section className="max-w-7xl mx-auto px-4 md:px-10 py-10">
+        <h2 className="text-2xl font-semibold mb-6">Latest in {formattedSlug}</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {posts.map((post, index) => (
+            <BoxUiHomePage key={index} post={post} />
+          ))}
+        </div>
+      </section>
+
+      {/* Categories List */}
+      <section className="max-w-7xl mx-auto px-4 md:px-10 pb-20">
+        <h2 className="text-xl font-semibold mb-4 text-gray-700">More Categories</h2>
+        <JobCategories />
+      </section>
+    </main>
   );
 }

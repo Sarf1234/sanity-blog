@@ -34,6 +34,7 @@ export const postFields = `
   title,
   slug,
   publishedAt,
+  summary,
   "authorName": author->name,
   "authorImage": author->image.asset->url,
   "mainImage": mainImage.asset->url,
@@ -92,3 +93,16 @@ export const bannersQuery = groq`
     externalUrl
   }
 `;
+
+//for qoute of last page
+export const quoteSliderQuery = groq`
+  *[_type == "quoteSlider"][0]{
+    quotes[]{
+      text,
+      buttonText,
+      linkType,
+      "internalLinkSlug": internalLink->slug.current,
+      externalUrl
+    }
+  }
+`

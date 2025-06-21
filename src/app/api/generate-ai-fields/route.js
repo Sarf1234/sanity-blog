@@ -23,7 +23,7 @@ export async function POST(req) {
       return new Response("Body already exists, skipping.", { status: 200 });
     }
 
- const prompt = `
+    const prompt = `
 You are a professional SEO blog writer. Write a full-length blog in Hinglish (mixed Hindi-English), the way Indian people talk naturally online — for example:
 
 Example: 
@@ -50,24 +50,27 @@ Instructions:
 Avoid headings, bullets, or formatting. Just write a clean, flowing article in Hinglish.
 `;
 
-
-
-
-    const aiRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "llama3-70b-8192",
-        messages: [
-          { role: "system", content: "You are a professional SEO blog writer." },
-          { role: "user", content: prompt },
-        ],
-        temperature: 0.7,
-      }),
-    });
+    const aiRes = await fetch(
+      "https://api.groq.com/openai/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "llama3-70b-8192",
+          messages: [
+            {
+              role: "system",
+              content: "You are a professional SEO blog writer.",
+            },
+            { role: "user", content: prompt },
+          ],
+          temperature: 0.7,
+        }),
+      }
+    );
 
     const data = await aiRes.json();
     const content = data.choices?.[0]?.message?.content || "";

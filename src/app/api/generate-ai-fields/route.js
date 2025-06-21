@@ -23,26 +23,34 @@ export async function POST(req) {
       return new Response("Body already exists, skipping.", { status: 200 });
     }
 
-   const prompt = `
-You are a professional SEO blog writer with expertise in writing emotionally engaging, human-like articles that rank on Google.
+  const prompt = `
+You are a professional SEO blog writer with expertise in writing emotionally engaging, long-form Hinglish blog articles that rank on Google and feel like human-written content.
 
-Your task is to write a complete, well-researched blog post based on the title: "${title}".
+Write a complete and meaningful blog post based on this title: "${title}"
 
-Structure your response in the following order, with plain text only (no JSON, Markdown, or special characters):
+Follow this exact structure and return plain text only (no JSON, Markdown, or formatting):
 
-1. Meta Title: (under 60 characters, emotionally engaging)
+1. Meta Title: (under 60 characters, emotional and click-worthy)
 2. Meta Description: (under 160 characters, persuasive and keyword-rich)
-3. SEO Keywords: (comma-separated, 5 keywords max, high search intent)
-4. Blog Content: Write a detailed blog in 8-10 paragraphs. The tone should be warm, empathetic, relatable, and written as if by a human with life experience. Include storytelling elements, personal touch, and advice that genuinely helps the reader. Use short sentences, rhetorical questions, emotional resonance, and examples.
+3. SEO Keywords: (comma-separated, 5 high-intent keywords max)
+4. Blog Content: Write a detailed blog post in 8–10 paragraphs. Use Hinglish (Hindi-English mix) that feels natural — jaise ki koi real insaan dil se likh raha ho. Tone should be warm, emotional, relatable, aur friendly.
+
+Include:
+- Storytelling elements aur personal touch
+- Real-life relatable examples
+- Short, simple sentences and rhetorical questions
+- Reader ko samjhne aur connect karne ki koshish
+- SEO-friendly flow without over-optimization
 
 Ensure:
-- The article is optimized for SEO but still reads naturally and use hinglish.
-- Content is unique and not generic.
-- Focus on reader intent and emotional connection.
-- Make it Google-friendly, share-worthy, and trustworthy.
+- Blog Google mein rank kare aur emotionally connect bhi kare
+- Language bilkul natural lage, not robotic or generic
+- Article trustworthy, unique, aur share-worthy ho
+- Ending mein ek emotional, thought-provoking message ya takeaway ho
 
-End the article with a gentle takeaway or message to leave the reader feeling understood and supported.
+Do not use headings or bullet points. Just write clean, well-flowing paragraphs.
 `;
+
 
 
     const aiRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {

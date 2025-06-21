@@ -13,7 +13,7 @@ const BannerCarousel = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await client.fetch(bannersQuery);
+      const data = await client.fetch(bannersQuery, {}, { cache: 'no-store' });
       setBanners(data || []);
     };
     fetchData();

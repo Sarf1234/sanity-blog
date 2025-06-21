@@ -23,33 +23,33 @@ export async function POST(req) {
       return new Response("Body already exists, skipping.", { status: 200 });
     }
 
-  const prompt = `
-You are a professional SEO blog writer with expertise in writing emotionally engaging, long-form Hinglish blog articles that rank on Google and feel like human-written content.
+ const prompt = `
+You are a professional SEO blog writer. Write a full-length blog in Hinglish (mixed Hindi-English), the way Indian people talk naturally online — for example:
 
-Write a complete and meaningful blog post based on this title: "${title}"
+Example: 
+"Jab dil toot jata hai na, toh lagta hai sab kuch khatam ho gaya. Lekin zindagi wahi rukti nahi. Thoda waqt lagta hai, but things do get better."
 
-Follow this exact structure and return plain text only (no JSON, Markdown, or formatting):
+Based on the title: "${title}", write a complete, emotionally meaningful, long-form Hinglish blog post.
+
+Use this structure only (plain text output):
 
 1. Meta Title: (under 60 characters, emotional and click-worthy)
 2. Meta Description: (under 160 characters, persuasive and keyword-rich)
-3. SEO Keywords: (comma-separated, 5 high-intent keywords max)
-4. Blog Content: Write a detailed blog post in 8–10 paragraphs. Use Hinglish (Hindi-English mix) that feels natural — jaise ki koi real insaan dil se likh raha ho. Tone should be warm, emotional, relatable, aur friendly.
+3. SEO Keywords: (comma-separated, 5 keywords max)
+4. Blog Content: Write a detailed blog post in 10-15 paragraphs in Hinglish (use both Hindi and English words as Indians naturally speak). Use simple, emotional, relatable tone — jaise koi apna dil se likh raha ho.
 
-Include:
-- Storytelling elements aur personal touch
-- Real-life relatable examples
-- Short, simple sentences and rhetorical questions
-- Reader ko samjhne aur connect karne ki koshish
-- SEO-friendly flow without over-optimization
+Instructions:
+- Storytelling aur personal examples ka use karo
+- Chhoti chhoti lines likho, jisme emotion ho
+- Rhetorical questions use karo jaise: "Kya aapne bhi kabhi aisa feel kiya hai?"
+- Reader ko apne words se connect feel karao
+- Blog Google-friendly hona chahiye, but natural lage — over SEO mat karo
+- Last paragraph mein ek emotional ya motivational closing zarur ho
+- Strictly use Hinglish (no pure English)
 
-Ensure:
-- Blog Google mein rank kare aur emotionally connect bhi kare
-- Language bilkul natural lage, not robotic or generic
-- Article trustworthy, unique, aur share-worthy ho
-- Ending mein ek emotional, thought-provoking message ya takeaway ho
-
-Do not use headings or bullet points. Just write clean, well-flowing paragraphs.
+Avoid headings, bullets, or formatting. Just write a clean, flowing article in Hinglish.
 `;
+
 
 
 

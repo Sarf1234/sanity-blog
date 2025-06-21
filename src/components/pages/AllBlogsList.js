@@ -5,7 +5,7 @@ import Link from "next/link";
 import BoxUiHomePage from "../ui/BoxUiHomePage";
 
 const AllBlogsList = async () => {
-  const posts = await client.fetch(latestPostsQuery);
+  const posts = await client.fetch(latestPostsQuery, {}, { cache: 'no-store' });
   const topPosts = posts?.slice(0, 10); // Only first 2 posts
 
   return (

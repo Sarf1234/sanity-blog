@@ -3,7 +3,7 @@ import { client } from "../../sanity/lib/client";
 import { categoriesQuery } from "@/lib/queries";
 
 export default async function JobCategories() {
-  const categories = await client.fetch(categoriesQuery);
+  const categories = await client.fetch(categoriesQuery, {}, { cache: 'no-store' });
 
   return (
     <div className="bg-white rounded-lg shadow-md p-5 w-full">

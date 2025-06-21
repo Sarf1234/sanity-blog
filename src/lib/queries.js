@@ -106,3 +106,16 @@ export const quoteSliderQuery = groq`
     }
   }
 `
+
+// ✅ Posts by multiple category slugs
+// ✅ /lib/queries.js
+export const postsByTwoCategoriesQuery = groq`
+  *[
+    _type == "post" &&
+    references(*[_type == "category" && slug.current == $slug1][0]._id) ||
+    references(*[_type == "category" && slug.current == $slug2][0]._id)
+  ] | order(publishedAt desc) {
+    ${postFields}
+  }
+`
+

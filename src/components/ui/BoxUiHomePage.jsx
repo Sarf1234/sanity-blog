@@ -25,7 +25,7 @@ const BoxUiHomePage = React.memo(({ post, index }) => {
             loading="lazy"
           />
         </div>
-      </Link>
+     
 
       <div className="p-5">
         <h3 className="text-lg font-semibold text-[#4b2852] mb-2 line-clamp-2">
@@ -41,13 +41,14 @@ const BoxUiHomePage = React.memo(({ post, index }) => {
           {post.summary || "No summary available."}
         </p>
 
-        <Link
-          href={`/blog/${post.slug.current}`}
+        <div
+         
           className="text-[#9d3dbf] text-sm font-semibold hover:underline flex items-center"
         >
           Read More <span className="ml-1">→</span>
-        </Link>
+        </div>
       </div>
+       </Link>
     </article>
   );
 });

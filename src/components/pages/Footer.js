@@ -10,7 +10,8 @@ export default function Footer() {
     { name: "Love Stories", href: "/love-stories" },
     { name: "Relationship Advice", href: "/relationship-advice" },
     { name: "Breakup Healing", href: "/healing" },
-    { name: "About Us", href: "/about" },
+    { name: "About Us", href: "/about-us" },
+    { name: "Contact Us", href: "/contact-us" },
   ]
 
   return (
@@ -20,7 +21,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Logo & About */}
           <div className="text-center md:text-left">
-            <h3 className="text-3xl font-bold text-rose mb-4">LoveConnect</h3>
+            <h3 className="text-3xl font-bold text-rose mb-4">TrueFeelings</h3>
             <p className="text-base text-gray-700 leading-relaxed">
               A place where hearts heal, souls connect, and stories are shared. Whether you're in love, healing, or learning — we're here for every phase of your journey.
             </p>
@@ -74,7 +75,7 @@ export default function Footer() {
 
         {/* Bottom Note */}
         <div className="mt-10 pt-6 border-t border-gray-300 text-center text-sm text-gray-600">
-          © 2025 <span className="text-rose font-medium">LoveConnect</span>. Love deeply, heal gently, grow always.
+          © 2025 <span className="text-rose font-medium">Truefeelings</span>. Love deeply, heal gently, grow always.
         </div>
       </div>
     </footer>

@@ -7,14 +7,42 @@ import { client } from '@/sanity/lib/client'
 import { quoteSliderQuery } from '@/lib/queries'
 import Link from 'next/link'
 
+// ✅ Fallback quotes (copyright-free, human-like)
+const fallbackQuotes = [
+  {
+    text: "Love isn’t about finding a perfect person, it’s about learning to see an imperfect soul perfectly."
+  },
+  {
+    text: "The best relationships are built on small moments of kindness, not grand gestures of love."
+  },
+  {
+    text: "In true love, silence often speaks louder than a thousand beautiful words."
+  },
+  {
+    text: "Every strong bond is stitched together with trust, patience, and gentle understanding."
+  },
+  {
+    text: "Real love doesn’t complete you — it helps you grow into the fullest version of yourself."
+  },
+]
+
 const QuoteCarousel = () => {
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 5000 })])
   const [quotes, setQuotes] = useState([])
 
   useEffect(() => {
     const fetchQuotes = async () => {
-      const data = await client.fetch(quoteSliderQuery)
-      setQuotes(data?.quotes || [])
+      try {
+        const data = await client.fetch(quoteSliderQuery)
+        if (data?.quotes?.length > 0) {
+          setQuotes(data.quotes)
+        } else {
+          setQuotes(fallbackQuotes) // fallback if Sanity is empty
+        }
+      } catch (error) {
+        console.error("Error fetching quotes:", error)
+        setQuotes(fallbackQuotes) // fallback on error
+      }
     }
     fetchQuotes()
   }, [])
@@ -35,8 +63,8 @@ const QuoteCarousel = () => {
                   {quote.text}
                 </p>
 
-                {/* Conditionally render button */}
-                {/* {quote.buttonText && (
+                {/* Optional button support (internal/external links) */}
+                {quote.buttonText && (
                   <>
                     {quote.linkType === 'external' && quote.externalUrl && (
                       <a
@@ -58,7 +86,7 @@ const QuoteCarousel = () => {
                       </Link>
                     )}
                   </>
-                )} */}
+                )}
               </div>
             </div>
           ))}

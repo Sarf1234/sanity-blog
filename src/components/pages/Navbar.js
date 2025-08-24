@@ -46,7 +46,28 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
-        <Link href="/"> <div className="text-2xl font-bold text-plum">LoveVerse</div></Link>
+<Link href="/" className="flex items-center gap-2 group">
+      {/* Heart SVG */}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        className="w-8 h-8 transition-transform duration-300 group-hover:scale-110"
+        fill="currentColor"
+      >
+        <path
+          d="M12 21s-6.5-4.2-9.2-7.2C.9 11.7 1.2 8.3 3.7 6.7c2.2-1.4 4.9-.7 6.3 1.1 1.4-1.8 4.1-2.5 6.3-1.1 2.5 1.6 2.8 5 .9 7.1C18.5 16.8 12 21 12 21z"
+          className="text-rose-500"
+        />
+      </svg>
+
+      {/* Brand Text */}
+      <span className="text-2xl font-extrabold tracking-tight">
+        <span className="bg-gradient-to-r from-rose-500 via-pink-500 to-fuchsia-600 bg-clip-text ">
+          True
+        </span>
+        <span className="text-gray-800 dark:text-gray-100">feelings</span>
+      </span>
+    </Link>
        
 
         {/* Desktop Menu */}
@@ -91,7 +112,7 @@ const Navbar = () => {
           //           ? "text-gray-700 hover:text-plum"
           //         : "text-white hover:text-rose hover:bg-white/10"
           //  }`}
-          className="w-6 h-6 cursor-pointer text-softGray"
+          className="w-6 h-6 cursor-pointer text-black"
             onClick={() => setIsMenuOpen(true)}
           />
         </div>

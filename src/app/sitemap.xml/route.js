@@ -2,7 +2,7 @@ import { client } from "@/sanity/lib/client";
 import { categoriesQuery, allPostsQuery } from "@/lib/queries";
 
 export async function GET() {
-  const baseUrl = "https://love-relationships-solutions.netlify.app/"; // ✅ Replace with your domain
+  const baseUrl = "https://truefeelings.in"; // ✅ Replace with your domain
 
   const [categories, posts] = await Promise.all([
     client.fetch(categoriesQuery),
